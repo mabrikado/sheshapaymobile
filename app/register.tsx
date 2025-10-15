@@ -8,12 +8,12 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import axios from "axios";
 
-const api = "http://localhost:8080/";
+const api = "https://photographable-chrissy-tiredly.ngrok-free.dev/";
 
-export default function RegisterScreen({ navigation }) {
+export default function RegisterScreen({ navigation}) {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
@@ -62,7 +62,7 @@ export default function RegisterScreen({ navigation }) {
       const response = await axios.post(api + "auth/register", form);
       if (response.status === 201) {
         Alert.alert("Success", "Registration successful!");
-        navigation.navigate("Login");
+        router.replace("/login")
       }
     } catch (error) {
       Alert.alert("Error", error.response?.data?.message || "Registration failed");

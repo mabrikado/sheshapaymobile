@@ -1,6 +1,15 @@
 import { Text, View, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
 
 export default function ProfileScreen(){
+
+    const router = useRouter();
+
+    useEffect(()=>{
+      router.replace("/login")
+    } , [])
+  
 
     return (
         <View style={styles.container}>

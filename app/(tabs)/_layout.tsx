@@ -32,7 +32,7 @@ export default function TabLayout() {
         }}
       />
 
-    <Tabs.Screen
+      <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
@@ -60,6 +60,24 @@ export default function TabLayout() {
             <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={24} />
           ),
         }}
+      />
+
+      {/* Hidden transaction screens */}
+      <Tabs.Screen
+        name="transactions/deposit"
+        options={{ title: 'Deposit', href: null }}
+      />
+      <Tabs.Screen
+        name="transactions/withdraw"
+        options={{ title: 'Withdraw', href: null }}
+      />
+      <Tabs.Screen
+        name="transactions/transfer"
+        options={{ title: 'Transfer', href: null }}
+      />
+      <Tabs.Screen
+        name="transactions/payment"
+        options={{ title: 'Payment', href: null }}
       />
     </Tabs>
   );

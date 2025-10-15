@@ -9,23 +9,40 @@ import {
   KeyboardAvoidingView,
   Platform,
   Animated,
+  ActivityIndicator,
 } from 'react-native';
-import { Link } from "expo-router";
+import * as SecureStore from 'expo-secure-store';
+import axios from 'axios';
+import { Link, useRouter } from 'expo-router';
+
+const API = 'https://photographable-chrissy-tiredly.ngrok-free.dev/';
 
 const THEME_COLOR = '#38a169';
 
 export default function LoginScreen() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [loginMessage, setLoginMessage] = useState('');
   const [buttonScale] = useState(new Animated.Value(1));
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  const handlePressIn = () => {
+    Animated.spring(buttonScale, { toValue: 0.95, useNativeDriver: true }).start();
   };
 
-  const handleLogin = () => {
-    // Trim input to avoid accidental spaces
+  const handlePressOut = () => {
+    Animated.spring(buttonScale, { toValue: 1, friction: 3, useNativeDriver: true }).start();
+  };
+
+  // Safe storage that works across platforms
+  const saveItem = async (key : string , value : string) => {
+    if (Platform.OS !== 'web') {
+      await SecureStore.setItemAsync(key, value);
+    }
+  };
+
+  const handleLogin = async () => {
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
 
@@ -34,32 +51,36 @@ export default function LoginScreen() {
       return;
     }
 
-    if (!validateEmail(trimmedEmail)) {
-      Alert.alert('Invalid Email', 'Please enter a valid email address.');
-      return;
+    setLoading(true);
+    setLoginMessage('');
+
+    try {
+      const response = await axios.post(API + 'auth/login', {
+        email: trimmedEmail,
+        password: trimmedPassword,
+      });
+
+      if (response.status === 200) {
+        const { token, username } = response.data;
+
+        // Securely save token and username
+        await saveItem('access_token', token);
+        await saveItem('username', username);
+
+        setLoginMessage('Login successful!');
+        setEmail('');
+        setPassword('');
+
+        router.replace('/dollar');
+      }
+    } catch (error) {
+      console.log('Login error:', error.response || error.message);
+      setLoginMessage(
+        error.response?.data?.error || 'Login failed. Please check credentials.'
+      );
+    } finally {
+      setLoading(false);
     }
-
-    if (trimmedPassword.length < 6) {
-      Alert.alert('Weak Password', 'Password must be at least 6 characters.');
-      return;
-    }
-
-    Alert.alert('Login Successful', `Welcome, ${trimmedEmail}!`);
-  };
-
-  const handlePressIn = () => {
-    Animated.spring(buttonScale, {
-      toValue: 0.95,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const handlePressOut = () => {
-    Animated.spring(buttonScale, {
-      toValue: 1,
-      friction: 3,
-      useNativeDriver: true,
-    }).start();
   };
 
   return (
@@ -97,10 +118,26 @@ export default function LoginScreen() {
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
             activeOpacity={0.8}
+            disabled={loading}
           >
-            <Text style={styles.buttonText}>Login</Text>
+            {loading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Login</Text>
+            )}
           </TouchableOpacity>
         </Animated.View>
+
+        {loginMessage ? (
+          <Text
+            style={[
+              styles.message,
+              loginMessage.includes('successful') ? styles.success : styles.error,
+            ]}
+          >
+            {loginMessage}
+          </Text>
+        ) : null}
 
         <Text style={styles.footerText}>
           Don’t have an account?{' '}
@@ -169,19 +206,10 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5,
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  footerText: {
-    textAlign: 'center',
-    marginTop: 24,
-    color: '#6b7280',
-    fontSize: 14,
-  },
-  link: {
-    color: THEME_COLOR,
-    fontWeight: 'bold',
-  },
+  buttonText: { color: '#fff', fontSize: 18, fontWeight: '600' },
+  message: { textAlign: 'center', marginTop: 12, fontSize: 14 },
+  success: { color: 'green' },
+  error: { color: 'red' },
+  footerText: { textAlign: 'center', marginTop: 24, color: '#6b7280', fontSize: 14 },
+  link: { color: THEME_COLOR, fontWeight: 'bold' },
 });
