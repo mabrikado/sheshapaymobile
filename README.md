@@ -56,6 +56,12 @@ Screens under development include:
 
 ---
 
+## Promotion Site
+
+Check out the **promotion site** for SheshaPay Mobile [here](https://sheshapayapppromotion.netlify.app/).
+
+---
+
 ## Release
 
 SheshaPay Mobile’s **first release** is planned for **early November 2025**.  
