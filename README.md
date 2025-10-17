@@ -1,50 +1,79 @@
-# Welcome to your Expo app 👋
+# SheshaPay Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**SheshaPay Mobile — Fast, Secure, Connected. First release early November 2025.**
 
-## Get started
+---
 
-1. Install dependencies
+## About
 
-   ```bash
-   npm install
-   ```
+SheshaPay Mobile is a **modern digital wallet app** designed for **speed, simplicity, and security**. It allows users to:
 
-2. Start the app
+- Manage digital wallets  
+- Send and receive money  
+- Track transactions  
 
-   ```bash
-   npx expo start
-   ```
+All operations are designed to be effortless, secure, and reliable.
 
-In the output, you'll find options to open the app in a
+> ⚠️ Currently in development. First release is planned for early November 2025.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Features
 
-## Get a fresh project
+### What You’ll Be Able to Do
 
-When you're ready, run:
+- **Create Your Account**: Sign up quickly and securely to start managing your digital wallet.  
+- **Top-Up & Transfer**: Add funds to your wallet, send money to friends, or pay merchants seamlessly.  
+- **Track Transactions**: View deposits, withdrawals, and transfers in real time — all in one simple interface.  
 
-```bash
-npm run reset-project
-```
+---
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Security
 
-## Learn more
+SheshaPay Mobile is **secure by design**:
 
-To learn more about developing your project with Expo, look at the following resources:
+- Built on a robust backend with **JWT authentication**  
+- **Role-based access control** ensures safe operations  
+- All user actions are protected, from login to transfers
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+> Note: This is a **learning project**; no real payment data is used.
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## Sneak Peek
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The app UI is designed to feel **intuitive and modern**, with:
+
+- **Mobile-style frames** for all screens  
+- **Smooth transitions** between screens  
+- **Floating icons and subtle animations** for a dynamic feel  
+
+Screens under development include:
+
+- **Register & Login**  
+- **Home Dashboard**  
+- **Profile & Settings**  
+
+---
+
+## Release
+
+SheshaPay Mobile’s **first release** is planned for **early November 2025**.  
+
+While development is ongoing, you can explore the app’s web dashboard and track updates:
+
+- [Try Dashboard](https://sheshapayweb-latest.onrender.com)  
+- [Follow progress on GitHub](https://github.com/mabrikado/sheshapaymobile)
+
+---
+
+## Design Highlights
+
+- **Hero Section:** Gradient background, animated floating icons  
+- **Carousel Preview:** Mobile frames with rounded corners, shadows, and smooth transitions  
+- **Animations:** Fade-ins, hover effects, and dynamic floating elements  
+- **Buttons:** Interactive hover styles with color transitions
+
+---
+
+> Developed as a **learning and demonstration project** by Mabrikado.  
